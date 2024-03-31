@@ -93,11 +93,11 @@ service.interceptors.response.use(
     // 对响应数据做点什么
     const { data } = response
 
-    if (data && data.code !== '0') {
+    if (data && data.code !== 0) {
       message.error(data.msg)
       return Promise.reject(data)
     }
-    return response
+    return data
   },
   (error: AxiosError) => {
     // 对响应错误做点什么

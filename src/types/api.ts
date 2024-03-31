@@ -1,7 +1,8 @@
-import { UserModel } from './model/user'
+import { CaptchaResp } from './model/base'
+import { UserResp } from './model/user'
 
 export interface Result {
-  code: string
+  code: number
   msg: string
 }
 
@@ -12,7 +13,11 @@ export interface ResultData<T = any> extends Result {
 
 export interface LoginApiResponse extends Result {
   data?: {
-    userInfo: UserModel
+    userInfo: UserResp
     token: string
   }
+}
+
+export interface CaptchaApiResponse extends Result {
+  data?: CaptchaResp
 }

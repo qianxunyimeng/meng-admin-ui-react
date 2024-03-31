@@ -43,5 +43,14 @@ export default defineConfig((config) => {
     define: {
       __PACKAGE_NAME__: JSON.stringify(process.env.npm_package_name),
     },
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://127.0.0.1:8888', // 目标服务器的地址
+          //changeOrigin: true, // 是否改变源地址
+          //rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径
+        },
+      },
+    },
   }
 })

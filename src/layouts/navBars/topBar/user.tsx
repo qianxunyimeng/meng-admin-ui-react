@@ -1,4 +1,4 @@
-import { Dropdown, Modal } from 'antd'
+import { Dropdown, Modal, message } from 'antd'
 import { ThemeMode, createStyles } from 'antd-style'
 import type { MenuProps } from 'antd'
 import Avatar from '@/assets/img/avatar.webp'
@@ -13,6 +13,7 @@ import { useThemeStore } from '@/store/theme'
 import { useShallow } from 'zustand/react/shallow'
 import { LayoutMode } from '@/types/theme'
 import { DarkIcon, FollowSysyemIcon, LightIcon } from '@/components/icon/themSwitchIcon'
+import { LogoutApi } from '@/api/login'
 
 const useStyles = createStyles(
   ({ token, css }, props: { layoutMode: LayoutMode; splitMenus: boolean }) => {
@@ -114,12 +115,17 @@ const LayoutUser = () => {
     }
   }
 
-  const handleOk = () => {
-    Session.remove('token')
-    setIsModalOpen(false)
-    setTimeout(() => {
-      nav(LOGIN_PATHNAME)
-    }, 0)
+  const handleOk = async () => {
+    const res = await LogoutApi()
+    if (res.code === 0) {
+      Session.remove('token')
+      setIsModalOpen(false)
+      setTimeout(() => {
+        nav(LOGIN_PATHNAME)
+      }, 0)
+    } else {
+      message.error(res.msg)
+    }
   }
 
   const handleCancel = () => {

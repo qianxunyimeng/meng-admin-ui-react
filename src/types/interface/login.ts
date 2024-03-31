@@ -2,4 +2,6 @@
 export interface ReqLogin {
   userName: string
   password: string
+  captcha: string
+  captchaId: string
 }
