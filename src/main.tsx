@@ -15,11 +15,16 @@ import 'uno.css'
 import 'virtual:unocss-devtools'
 import App from './App.tsx'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   //<React.StrictMode>
-  <AliveScope>
-    <App />
-  </AliveScope>,
+  <QueryClientProvider client={queryClient}>
+    <AliveScope>
+      <App />
+    </AliveScope>
+  </QueryClientProvider>,
   //</React.StrictMode>,
 )
 

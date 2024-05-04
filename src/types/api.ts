@@ -12,7 +12,7 @@ export interface ResultData<T = any> extends Result {
 }
 
 export interface LoginApiResponse extends Result {
-  data?: {
+  data: {
     userInfo: UserResp
     token: string
   }

@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react'
 import UnoCSS from 'unocss/vite'
 import gzipPlugin from 'rollup-plugin-gzip'
 import legacy from '@vitejs/plugin-legacy'
-const BASE = '/meng-react-admin-preview/'
+//const BASE = '/meng-react-admin-preview/'
+const BASE = '/'
 // https://vitejs.dev/config/
 export default defineConfig((config) => {
   console.log(config)
@@ -46,7 +47,7 @@ export default defineConfig((config) => {
     server: {
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:8888', // 目标服务器的地址
+          target: 'http://127.0.0.1:8090', // 目标服务器的地址
           //changeOrigin: true, // 是否改变源地址
           //rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径
         },

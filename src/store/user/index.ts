@@ -1,10 +1,10 @@
-import { UserModel } from '@/types/model/user'
 import { createSelectors } from '@/utils/createSelector'
 import { StateCreator, create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { devtools, persist, subscribeWithSelector } from 'zustand/middleware'
+import { UserResp } from '@/types/model'
 type TUserStoreState = {
-  user: UserModel | null
+  user: UserResp | null
   //setUser: (user: UserModel) => void;
   //clearUser: () => void;
   //summary: () => string;
@@ -80,7 +80,7 @@ export const useUserStore = createSelectors(
   ),
 )
 
-export const setUser = (user: UserModel) => {
+export const setUser = (user: UserResp) => {
   useUserStore.setState((state) => {
     state.user = user
   })

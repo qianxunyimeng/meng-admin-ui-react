@@ -1,8 +1,10 @@
 // 常用的路由，常量
-export const BASE_ROUTE = '/meng-react-admin-preview/'
+// export const BASE_ROUTE = '/meng-react-admin-preview/'
+export const BASE_ROUTE = '/'
 export const HOME_PATHNAME = '/home'
 export const LOGIN_PATHNAME = '/login'
 export const REGISTER_PATHNAME = '/register'
+export const TOKEN = 'mg-token'
 
 // * 路由（白名单地址）
 export const ROUTE_BLACK_LIST: string[] = ['/403', '/404', '/500', '/layout', '/login', '/register']

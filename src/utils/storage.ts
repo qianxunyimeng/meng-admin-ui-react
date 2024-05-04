@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { TOKEN } from '@/config/config'
 import Cookies from 'js-cookie'
 
 /**
@@ -42,12 +43,12 @@ export const Local = {
 export const Session = {
   // 设置临时缓存
   set(key: string, val: string) {
-    if (key === 'token') return Cookies.set(key, val)
+    if (key === 'token') return Cookies.set(TOKEN, val)
     window.sessionStorage.setItem(Local.setKey(key), JSON.stringify(val))
   },
   // 获取临时缓存
   get(key: string) {
-    if (key === 'token') return Cookies.get(key)
+    if (key === 'token') return Cookies.get(TOKEN)
     const json = <string>window.sessionStorage.getItem(Local.setKey(key))
     return JSON.parse(json)
   },
