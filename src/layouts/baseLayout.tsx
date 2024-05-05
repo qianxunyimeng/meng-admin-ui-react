@@ -3,8 +3,10 @@
 // import { Outlet } from 'react-router-dom'
 import { useThemeStore } from '@/store/theme'
 import LazyLoad from '@/components/lazy'
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 import React from 'react'
+import { App } from 'antd'
+import { antdUtils } from '@/utils/antdUtil'
 
 export type BaseLayoutType = {
   // class前缀
@@ -13,7 +15,13 @@ export type BaseLayoutType = {
 }
 
 const BaseLayout: React.FC<BaseLayoutType> = () => {
+  const { message, notification, modal } = App.useApp()
   const LayoutMode = useThemeStore((state) => state.layout)
+  useEffect(() => {
+    antdUtils.setModalInstance(modal)
+    antdUtils.setMessageInstance(message)
+    antdUtils.setNotificationInstance(notification)
+  })
   switch (LayoutMode) {
     case 'mix':
       return LazyLoad(lazy(() => import('./main/mixLayout')))

@@ -21,7 +21,10 @@ import {
   TableColumnsType,
   Space,
   Modal,
+  Tag,
 } from 'antd'
+import { useQuery } from '@tanstack/react-query'
+import * as dayjs from 'dayjs'
 import { CreateFormModalProps, MenuModel, SearchFormField } from './type'
 import { useMemo, useState } from 'react'
 import BaseFormModal from '@/components/common/form-modal'
@@ -33,7 +36,7 @@ import {
   updateMenuApi,
 } from '@/api/system/menu'
 import { buildTreeFromArray } from '@/utils/tree'
-import { useQuery } from '@tanstack/react-query'
+import { cleanEmptyObj } from '@/utils/util'
 
 const InitFormData: MenuModel = {
   parentId: 0,
@@ -47,6 +50,8 @@ const InitFormData: MenuModel = {
 }
 
 const CreateMenuModal: React.FC<CreateFormModalProps> = (props) => {
+  console.log(props)
+
   const [form] = Form.useForm()
 
   const { data } = useQuery({
@@ -74,10 +79,17 @@ const CreateMenuModal: React.FC<CreateFormModalProps> = (props) => {
 
   const modalOpen = () => {
     form.setFieldsValue(props.initialValues)
+    setTemp(props.initialValues)
+  }
+
+  const [temp, setTemp] = useState<MenuModel>(props.initialValues)
+
+  const fieldChange = (_: any, allFields: any) => {
+    setTemp(allFields)
   }
   return (
     <BaseFormModal {...props} form={form} afterOpen={modalOpen}>
-      <Form form={form} labelCol={{ flex: '120px' }}>
+      <Form form={form} labelCol={{ flex: '120px' }} onValuesChange={fieldChange}>
         <Row>
           <Col span={24}>
             <Form.Item label='上级菜单' name='parentId'>
@@ -134,6 +146,13 @@ const CreateMenuModal: React.FC<CreateFormModalProps> = (props) => {
               <Input placeholder='请输入路由地址' />
             </Form.Item>
           </Col>
+          {temp.menuType === 'C' && (
+            <Col span={12}>
+              <Form.Item label='组件路径' name='component'>
+                <Input placeholder='请输入组件路径' />
+              </Form.Item>
+            </Col>
+          )}
           <Col span={12}>
             <Form.Item label='显示状态' name='visible'>
               <Radio.Group>
@@ -175,7 +194,7 @@ export default function Menu() {
   })
 
   const queryOk: FormProps<SearchFormField>['onFinish'] = (values) => {
-    setQueryKey(values)
+    setQueryKey(cleanEmptyObj(values))
   }
   const onReset = () => {
     form.resetFields()
@@ -233,14 +252,45 @@ export default function Menu() {
       key: 'age',
     },
     {
+      title: '状态',
+      dataIndex: 'status',
+      width: 100,
+      render: (_, record) => {
+        if (record.status == '1') {
+          return <Tag color='success'>正常</Tag>
+        } else {
+          return <Tag color='error'>停用</Tag>
+        }
+      },
+    },
+    // {
+    //   title: '显示状态',
+    //   dataIndex: 'visible',
+    //   render: (_, record) => {
+    //     if (record.visible == '1') {
+    //       return <Tag color='success'>显示</Tag>
+    //     } else {
+    //       return <Tag color='error'>异常</Tag>
+    //     }
+    //   },
+    // },
+    {
       title: '排序',
       dataIndex: 'sort',
       width: '100px',
     },
     {
+      title: '创建时间',
+      dataIndex: 'createdAt',
+      width: 180,
+      render: (_, record) => {
+        return <span>{dayjs(record.createdAt).format('YYYY-MM-DD HH:mm:ss')}</span>
+      },
+    },
+    {
       title: '操作',
       key: 'action',
-      width: '150px',
+      width: '200px',
       className: 'action-col',
       render: (_, record) => (
         <Space size='small'>
@@ -270,8 +320,6 @@ export default function Menu() {
               Modal.confirm({
                 title: '系统提示',
                 content: `是否确认删除名称为"${record.menuName}"的数据项`,
-                // okText: '确认',
-                // cancelText: '取消',
                 onOk: () => {
                   // 删除操作
                   deleteMenuById([record.menuId || 0]).then((res) => {

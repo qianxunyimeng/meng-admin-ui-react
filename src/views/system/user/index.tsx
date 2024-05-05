@@ -5,6 +5,8 @@ export default function User() {
   const goDept = () => {
     nav('/system/menu')
   }
+  console.log('用户管理')
+
   return (
     <div>
       用户管理页面

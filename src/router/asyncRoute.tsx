@@ -34,6 +34,22 @@ const originRoute: CustomRouteConfig[] = [
           component: '/views/system/menu/index',
         },
       },
+      {
+        path: '/system/role',
+        handle: {
+          title: '角色管理',
+          icon: 'mx-icon-caidan',
+          component: '/views/system/role/index',
+        },
+      },
+      {
+        path: '/system/dept',
+        handle: {
+          title: '部门管理',
+          icon: 'mx-icon-caidan',
+          component: '/views/system/dept/index',
+        },
+      },
     ],
   },
   {
@@ -111,3 +127,4 @@ const LoadView = (props: { path: string }) => {
 }
 
 export const asyncRouter = generateRoute(originRoute)
+console.log(asyncRouter)

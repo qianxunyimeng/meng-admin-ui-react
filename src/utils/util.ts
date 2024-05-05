@@ -2,6 +2,28 @@ import { MenuDataItem } from '@/types/menu'
 import sha265 from './sha265'
 import { pathToRegexp } from 'path-to-regexp'
 
+/**
+ * 是否是假值（无效值：null、undefined、''）
+ * @param value
+ * @returns
+ */
+export const isFalse = (value: unknown) => (value === 0 ? false : !value)
+
+export const isVoid = (value: unknown) => {
+  return value === undefined || value === null || value === ''
+}
+
+export const cleanEmptyObj = (obj: { [key: string]: unknown }) => {
+  const result = { ...obj }
+  Object.keys(result).forEach((key: string) => {
+    const value = result[key]
+    if (isVoid(value)) {
+      delete result[key]
+    }
+  })
+  return result
+}
+
 /** 判断是否是非空数组 */
 export const notNullArray = (value: any) => Array.isArray(value) && value.length > 0
 

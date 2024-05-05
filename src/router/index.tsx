@@ -35,3 +35,5 @@ export const addRoutes = (parentPath: string, routes: CustomRouteConfig[]) => {
 export const routes = frontEndRoutes
 export { asyncRouter } from './asyncRoute'
 export default router
+
+console.log(frontEndRoutes)

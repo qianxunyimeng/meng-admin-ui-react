@@ -22,6 +22,9 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.24.1
     version: 5.24.1(react@18.2.0)
+  '@tanstack/react-query-devtools':
+    specifier: ^5.34.1
+    version: 5.34.1(@tanstack/react-query@5.24.1)(react@18.2.0)
   '@welldone-software/why-did-you-render':
     specifier: ^8.0.1
     version: 8.0.1(react@18.2.0)
@@ -61,6 +64,9 @@ dependencies:
   nanoid:
     specifier: ^5.0.6
     version: 5.0.6
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   path-to-regexp:
     specifier: ^6.2.1
     version: 6.2.1
@@ -114,6 +120,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.25
     version: 20.11.25
+  '@types/nprogress':
+    specifier: ^0.2.3
+    version: 0.2.3
   '@types/qs':
     specifier: ^6.9.12
     version: 6.9.12
@@ -2604,6 +2613,21 @@ packages:
     resolution: {integrity: sha512-DZ6Nx9p7BhjkG50ayJ+MKPgff+lMeol7QYXkvuU5jr2ryW/4ok5eanaS9W5eooA4xN0A/GPHdLGOZGzArgf5Cg==}
     dev: false
 
+  /@tanstack/query-devtools@5.32.1:
+    resolution: {integrity: sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==}
+    dev: false
+
+  /@tanstack/react-query-devtools@5.34.1(@tanstack/react-query@5.24.1)(react@18.2.0):
+    resolution: {integrity: sha512-TJLml+Vd0PSD99hPxzzNmwX3ndMTw7Pd0cIlrn8P3dhaMq3wjTV+k+mw2uuuJ2p40uf5V7GQhiboCtFhxZGOdA==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.34.1
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-devtools': 5.32.1
+      '@tanstack/react-query': 5.24.1(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
   /@tanstack/react-query@5.24.1(react@18.2.0):
     resolution: {integrity: sha512-4+09JEdO4d6+Gc8Y/g2M/MuxDK5IY0QV8+2wL2304wPKJgJ54cBbULd3nciJ5uvh/as8rrxx6s0mtIwpRuGd1g==}
     peerDependencies:
@@ -2674,6 +2698,10 @@ packages:
 
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
+    dev: true
+
+  /@types/nprogress@0.2.3:
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
     dev: true
 
   /@types/parse-json@4.0.2:
@@ -5747,6 +5775,10 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}

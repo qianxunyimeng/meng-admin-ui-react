@@ -18,6 +18,7 @@ export interface MenuModel {
   sort?: number
   visible?: string
   status?: string
+  createdAt?: string
 }
 
 export type SearchFormField = {

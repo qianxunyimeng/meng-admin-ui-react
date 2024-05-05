@@ -92,6 +92,7 @@ const LayoutAside = () => {
   if (clearMenuData && clearMenuData?.length < 1 && splitMenus) {
     return null
   }
+  console.log('asideMenu: ', clearMenuData)
 
   // 收起的宽度
   const collapsedWidth = 64

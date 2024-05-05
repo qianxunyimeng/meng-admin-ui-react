@@ -68,6 +68,8 @@ export default function MengLayout() {
 
   useEffect(() => {
     const data = getMenuDataTrans(asyncRouter)
+    console.log('路由信息：', data)
+
     setMenuInfoData(data)
   }, [])
 
@@ -82,6 +84,7 @@ export default function MengLayout() {
   const matchMenus = useMemo(() => {
     return getMatchMenu(location.pathname, menuData || [], true)
   }, [location.pathname, menuData])
+  console.log('matchMenus: ', matchMenus)
 
   // 匹配选中的菜单以及父菜单 key
 
@@ -89,6 +92,7 @@ export default function MengLayout() {
     () => Array.from(new Set(matchMenus.map((item) => item.key || item.path || ''))) || [],
     [matchMenus],
   )
+  console.log('matchMenuKeys: ', matchMenuKeys)
 
   // const currentMenu = matchMenus[matchMenus.length - 1] || {}
   // console.log(matchMenuKeys)
