@@ -100,3 +100,26 @@ export class RouteListMap<V> extends Map<string, V> {
     return routeValue
   }
 }
+
+export function flatten(arr: Array<any>) {
+  return arr.reduce((result, item) => {
+    if (Array.isArray(item)) {
+      result = result.concat(flatten(item))
+    } else {
+      result.push(item)
+    }
+    return result
+  }, [])
+}
+
+export function treeToArray(tree: Array<any> = [], result: Array<any> = []) {
+  for (const item of tree) {
+    result.push(item)
+    if (item.children) {
+      treeToArray(item.children, result)
+      //Reflect.deleteProperty(item, 'children')
+    }
+  }
+  return result
+  //   return result;
+}

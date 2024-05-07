@@ -1,7 +1,5 @@
 import { CaptchaApi, LoginApi } from '@/api/login'
-import { HOME_PATHNAME } from '@/config/config'
 //import { addRoutes, asyncRouter } from '@/router'
-import { setUser } from '@/store/user'
 import { CaptchaResp } from '@/types/model/base'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Checkbox, Form, Input, Row, message } from 'antd'
@@ -42,10 +40,11 @@ export default function Login() {
       if (res.code === 0) {
         // 后端会直接把token存到cookie
         // Session.set('token', res.data?.token || '')
-        setUser(res.data?.userInfo)
-        nav(HOME_PATHNAME, {
-          replace: true,
-        })
+        //setUser(res.data?.userInfo)
+        // nav(HOME_PATHNAME, {
+        //   replace: true,
+        // })
+        nav('/home')
       } else {
         getCaptcha()
         setBtnLoad(false)

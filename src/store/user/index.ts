@@ -1,10 +1,12 @@
 import { createSelectors } from '@/utils/createSelector'
 import { StateCreator, create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { devtools, persist, subscribeWithSelector } from 'zustand/middleware'
-import { UserResp } from '@/types/model'
+import { devtools, subscribeWithSelector } from 'zustand/middleware'
+import { UserInfo } from '@/api/common'
 type TUserStoreState = {
-  user: UserResp | null
+  user: UserInfo | null
+  roles: string[]
+  permissions: string[]
   //setUser: (user: UserModel) => void;
   //clearUser: () => void;
   //summary: () => string;
@@ -57,32 +59,38 @@ const createUserSlice: StateCreator<
     ['zustand/immer', never],
     ['zustand/devtools', unknown],
     ['zustand/subscribeWithSelector', never],
-    ['zustand/persist', unknown],
+    //['zustand/persist', unknown],
   ]
 > = () => ({
   user: null,
+  roles: [],
+  permissions: [],
 })
 export const useUserStore = createSelectors(
   create<TUserStoreState>()(
     immer(
-      devtools(
-        subscribeWithSelector(
-          persist(createUserSlice, {
-            name: 'user-storage', // unique name
-          }),
-        ),
-        {
-          enabled: import.meta.env.VITE_APP_ENV === 'development', // 只在开发模式启用devtools
-          name: 'user store',
-        },
-      ),
+      devtools(subscribeWithSelector(createUserSlice), {
+        enabled: import.meta.env.VITE_APP_ENV === 'development', // 只在开发模式启用devtools
+        name: 'user store',
+      }),
     ),
   ),
 )
 
-export const setUser = (user: UserResp) => {
+export const setUser = (user: UserInfo) => {
   useUserStore.setState((state) => {
     state.user = user
+  })
+}
+
+export const setRoles = (roles: string[]) => {
+  useUserStore.setState((state) => {
+    state.roles = roles
+  })
+}
+export const setPermissions = (permissions: string[]) => {
+  useUserStore.setState((state) => {
+    state.permissions = permissions
   })
 }
 export const clearUser = () => {
@@ -90,4 +98,12 @@ export const clearUser = () => {
 }
 export const summary = () => {
   return useUserStore.getState().user?.nickName || '未登录'
+}
+
+export const roles = () => {
+  return useUserStore.getState().roles
+}
+
+export const permissions = () => {
+  return useUserStore.getState().permissions
 }

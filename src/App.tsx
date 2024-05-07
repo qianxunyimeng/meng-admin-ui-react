@@ -1,11 +1,10 @@
-import { RouterProvider } from 'react-router-dom'
-
-import routerConfig from './router'
 import { ConfigProvider, ConfigProviderProps, App as AntdApp } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 //import dayjs from 'dayjs'
 //import 'dayjs/locale/zh-cn'
 import { useState } from 'react'
+import Router from './router'
+//import { frontEndRoutes } from './router/frontEnd'
 type Locale = ConfigProviderProps['locale']
 //dayjs.locale('zhCN')
 export default function App() {
@@ -13,8 +12,13 @@ export default function App() {
   return (
     <ConfigProvider locale={locale}>
       <AntdApp className='h-full overflow-hidden'>
-        <RouterProvider router={routerConfig}></RouterProvider>
+        {/* {useRoutes(frontEndRoutes)} */}
+        {/* <RouterProvider router={routerConfig}></RouterProvider> */}
+        <Router></Router>
       </AntdApp>
     </ConfigProvider>
   )
+}
+{
+  /* <BrowserRouter>{useRoutes(frontEndRoutes)}</BrowserRouter> */
 }

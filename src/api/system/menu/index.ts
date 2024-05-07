@@ -4,6 +4,16 @@ import { MenuModel, SearchFormField } from '@/views/system/menu/type'
 
 import { useQuery } from '@tanstack/react-query'
 
+export interface RouterHandleVo {
+  title: string
+  icon: string
+  component: string
+}
+export interface RoutersVo {
+  path: string
+  handle: RouterHandleVo
+}
+
 export const insertMenuApi = (data: MenuModel) => {
   return useRequest.post<ResultData>({
     url: '/menu',
@@ -42,5 +52,11 @@ export const useMenuList = (data: SearchFormField) => {
   return useQuery({
     queryKey: ['sys-menu', 'menu', 'get', data],
     queryFn: () => getMenuListApi(data),
+  })
+}
+
+export const getRoutersApi = () => {
+  return useRequest.get<ResultData<RoutersVo[]>>({
+    url: '/menu/getRouters',
   })
 }

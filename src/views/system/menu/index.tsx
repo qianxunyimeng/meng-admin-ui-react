@@ -24,7 +24,7 @@ import {
   Tag,
 } from 'antd'
 import { useQuery } from '@tanstack/react-query'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import { CreateFormModalProps, MenuModel, SearchFormField } from './type'
 import { useMemo, useState } from 'react'
 import BaseFormModal from '@/components/common/form-modal'

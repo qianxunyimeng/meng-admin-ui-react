@@ -1,39 +1,35 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { frontEndRoutes } from './frontEnd'
-import { BASE_ROUTE } from '@/config/config'
-import { CustomRouteConfig } from '@/types/route'
+import { antdUtils } from '@/utils/antdUtil'
+import { App } from 'antd'
+import { lazy, useEffect } from 'react'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './baseRouter'
+import KeepAlive from 'react-activation'
+import LazyLoad from '@/components/lazy'
+import { RoutersVo } from '@/api/system/menu'
 
-const router = createBrowserRouter(frontEndRoutes, {
-  basename: BASE_ROUTE,
-})
+const Router = () => {
+  const { notification, message, modal } = App.useApp()
 
-function findNodeByPath(routes: CustomRouteConfig[], path: string) {
-  for (let i = 0; i < routes.length; i += 1) {
-    const element = routes[i]
+  useEffect(() => {
+    antdUtils.setMessageInstance(message)
+    antdUtils.setNotificationInstance(notification)
+    antdUtils.setModalInstance(modal)
+  }, [notification, message, modal])
 
-    if (element.path === path) return element
-
-    findNodeByPath(element.children || [], path)
-  }
+  return <RouterProvider router={router} />
 }
 
-export const addRoutes = (parentPath: string, routes: CustomRouteConfig[]) => {
-  if (!parentPath) {
-    router.routes.push(...(routes as any))
-    return
-  }
+const modules = import.meta.glob('@/views/**/*/index.tsx')
 
-  const curNode = findNodeByPath(router.routes as any[], parentPath)
-
-  if (curNode?.children) {
-    curNode?.children.push(...routes)
-  } else if (curNode) {
-    curNode.children = routes
+export const LoadView = (props: RoutersVo) => {
+  if (props.handle.component === 'Layout') {
+    return null
   }
+  return (
+    <KeepAlive cacheKey={props.path}>
+      {LazyLoad(lazy(modules[`/src${props.handle.component}.tsx`] as any))}
+    </KeepAlive>
+  )
 }
 
-export const routes = frontEndRoutes
-export { asyncRouter } from './asyncRoute'
-export default router
-
-console.log(frontEndRoutes)
+export default Router

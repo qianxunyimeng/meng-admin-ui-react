@@ -21,10 +21,10 @@ export default defineConfig((config) => {
       },
       rollupOptions: {
         output: {
-          manualChunks: {
-            react: ['react', 'react-dom', 'react-router', 'react-router-dom'], // 将react和react-dom打包到vendor chunk中
-            antd: ['antd', '@ant-design/icons'], // 将antd打包到antd chunk中
-          },
+          // manualChunks: {
+          //   react: ['react', 'react-dom', 'react-router', 'react-router-dom'], // 将react和react-dom打包到vendor chunk中
+          //   antd: ['antd', '@ant-design/icons'], // 将antd打包到antd chunk中
+          // },
         },
       },
     },
